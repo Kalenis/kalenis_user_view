@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<tree>
+    <field name="default"/>
+    <field name="global_available"/>
+    <field name="name"/>
+    <field name="user"/>
+    <field name="view"/>
+    <field name="view_model"/>
+    <field name="current_search"/>
+    <field name="order"/>
+
+</tree>

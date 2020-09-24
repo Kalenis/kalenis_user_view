@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<form>
+    <label name="name"/>
+    <field name="name"/>
+    <label name="description"/>
+    <field name="description"/>
+    <label name="field"/>
+    <field name="field"/>
+    <label name="field_widget"/>
+    <field name="field_widget"/>
+    <label name="visual"/>
+    <field name="visual"/>
+    <label name="type"/>
+    <field name="type"/>
+    <label name="width"/>
+    <field name="width"/>
+    <label name="height"/>
+    <field name="height"/>
+    <label name="expression"/>
+    <field name="expression"/>
+    <label name="sequence"/>
+    <field name="sequence"/>
+    
+    
+    
+    
+</form>

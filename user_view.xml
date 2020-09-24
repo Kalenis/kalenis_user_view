@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<tryton>
+    <data>
+
+<!-- User  View -->
+        
+        <record model="ir.ui.view" id="user_view_form">
+            <field name="model">user.view</field>
+            <field name="type">form</field>
+            <field name="name">user_view_form</field>
+        </record>
+        <record model="ir.ui.view" id="user_view_list">
+            <field name="model">user.view</field>
+            <field name="type">tree</field>
+            <field name="name">user_view_list</field>
+        </record>
+
+        
+
+
+<!-- User View Field -->
+
+        <record model="ir.ui.view" id="user_view_field_form">
+            <field name="model">user.view.field</field>
+            <field name="type">form</field>
+            <field name="name">user_view_field_form</field>
+        </record>
+        <record model="ir.ui.view" id="user_view_field_list">
+            <field name="model">user.view.field</field>
+            <field name="type">tree</field>
+            <field name="name">user_view_field_list</field>
+        </record>
+        
+
+<!-- Actions User View View-->
+        <record model="ir.action.act_window" id="act_user_view_list">
+            <field name="name">User View</field>
+            <field name="res_model">user.view</field>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_user_view_list_view">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="user_view_list"/>
+            <field name="act_window" ref="act_user_view_list"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_user_view_list_view_form">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="user_view_form"/>
+            <field name="act_window" ref="act_user_view_list"/>
+        </record>
+    
+        
+<!-- Menu User View -->
+       
+  <menuitem name="User Views" id="user_view_main_menu"/>
+
+
+         <menuitem name="User Views"
+            action="act_user_view_list"
+            id="user_view_menu"
+            parent="user_view_main_menu" sequence="10"/>
+
+
+
+    </data>
+</tryton>

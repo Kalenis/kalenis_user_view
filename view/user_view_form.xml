@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<form>
+    <label name="name"/>
+    <field name="name"/>
+    <label name="default"/>
+    <field name="default"/>
+    <label name="global_available"/>
+    <field name="global_available"/>
+    <label name="user"/>
+    <field name="user"/>
+    <label name="view"/>
+    <field name="view"/>
+    <label name="view_model"/>
+    <field name="view_model"/>
+    <label name="current_search"/>
+    <field name="current_search"/>
+    <label name="order"/>
+    <field name="order"/>
+    <field name="user_view_fields" colspan="4"/>    
+    
+    
+    
+    
+    
+</form>
