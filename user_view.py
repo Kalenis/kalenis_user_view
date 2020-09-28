@@ -34,6 +34,7 @@ class UserView(ModelSQL, ModelView):
         cls.__rpc__['user_views_get'] = RPC(cache=dict(days=1))
         cls.__rpc__['user_view_fields_get'] = RPC(cache=dict(days=1))
         cls.__rpc__['user_view_set'] = RPC(readonly=False)
+        cls.__rpc__['user_view_set_default_view'] = RPC(readonly=False)
         
     
     
@@ -58,11 +59,15 @@ class UserView(ModelSQL, ModelView):
                     'rec_name':view.name, 
                     'default':view.default, 
                     'search':view.current_search, 
-                    'order':view.order} 
+                    'order':view.order,
+                    'global_available':view.global_available} 
                         for view in views]
         
         
         return res
+
+
+
     
     @classmethod
     def user_view_fields_get(cls, view_id=None):
@@ -137,6 +142,22 @@ class UserView(ModelSQL, ModelView):
         return res
     
     @classmethod
+    def user_view_set_default_view(cls, view_id):
+        pool = Pool()
+        View = pool.get('user.view')
+        view = View(view_id)
+        current_default_views = View.search([('user','=',view.user.id),
+                                                 ('view','=',view.view.id),
+                                                  ('default','=',True)])
+        
+        for v in current_default_views:
+            v.default = False
+            v.save()
+        
+        view.default = True
+        view.save()
+
+    @classmethod
     def user_view_set(cls, view_data={}):
        
         pool = Pool()
@@ -153,7 +174,9 @@ class UserView(ModelSQL, ModelView):
 
         
         view.name = view_data['name']
-        view.default = view_data['default'] or False
+       
+                
+
         view.order = view_data['order'] or None
         view.current_search = view_data['search'] or None
         view.user = view_data['user']
@@ -191,12 +214,18 @@ class UserView(ModelSQL, ModelView):
         for field in view_data['fields']:
             fields.append(getField(field))
         
-        view.user_view_fields = fields
+        if len(fields) > 0:
+            view.user_view_fields = fields
 
        
         view.save()
        
         view_id = view.id
+
+        # view.default = view_data['default'] or False
+
+        if view_data['default'] == True:
+            View.user_view_set_default_view(view_id)
        
         
         
@@ -221,7 +250,7 @@ class UserViewField(sequence_ordered(), ModelSQL, ModelView):
     width = fields.Float('Width')
     height = fields.Float('Height')
     expression = fields.Char('Expression')
-    user_view = fields.Many2One('user.view', 'User View')
+    user_view = fields.Many2One('user.view', 'User View', ondelete='CASCADE')
     #to save from original view
     field_widget = fields.Char('Widget')
     visual = fields.Char('Visual')
