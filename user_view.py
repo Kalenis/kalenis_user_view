@@ -25,6 +25,10 @@ class UserView(ModelSQL, ModelView):
     global_available = fields.Boolean('Available to all users')
     current_search = fields.Char('Search')
     order = fields.Char('Order')
+    # field_name its used to id o2many fields views
+    field_name = fields.Char('Field Name')
+    #field_model: field_name model
+    field_model = fields.Many2One('ir.model', 'Field Model')
     user_view_fields = fields.One2Many('user.view.field', 'user_view', 'Fields')
 
 
@@ -39,17 +43,25 @@ class UserView(ModelSQL, ModelView):
     
     
     @classmethod
-    def user_views_get(cls, user_id=None, view_id=None):
+    def user_views_get(cls, user_id=None, view_id=None, field=False):
         '''
         Return list of user views.
         
         '''
         res = []
-        if not user_id or not view_id:
-            return res
-        
+        domain = []
         pool = Pool()
-        domain = [('user','=',user_id), ('view','=',view_id)]
+        if field == False:
+            if not user_id or not view_id:
+                return res
+            domain = [('user','=',user_id), ('view','=',view_id)]
+        else:
+            domain = [('user','=',user_id), 
+                        ('field_name','=',field['name']), 
+                        ('view_model.model','=',field['relation']),
+                        ('field_model.model', '=', field['model'])
+                        ]
+        
         
         views = pool.get('user.view').search(domain)
 
@@ -60,8 +72,13 @@ class UserView(ModelSQL, ModelView):
                     'default':view.default, 
                     'search':view.current_search, 
                     'order':view.order,
-                    'global_available':view.global_available} 
+                    'global_available':view.global_available,
+                    'field_name':view.field_name,
+                    'model':view.view_model.model
+                    } 
                         for view in views]
+        
+         
         
         
         return res
@@ -146,9 +163,18 @@ class UserView(ModelSQL, ModelView):
         pool = Pool()
         View = pool.get('user.view')
         view = View(view_id)
-        current_default_views = View.search([('user','=',view.user.id),
-                                                 ('view','=',view.view.id),
-                                                  ('default','=',True)])
+        domain = []
+        if view.view != None:
+            domain = [('user','=',view.user.id),('view','=',view.view.id),('default','=',True)]
+        else:
+            domain = [('user','=',view.user.id), 
+                        ('field_name','=',view.field_name), 
+                        ('view_model','=',view.view_model),
+                        ('field_model', '=', view.field_model),
+                        ('default','=',True)
+                        ]
+
+        current_default_views = View.search(domain)
         
         for v in current_default_views:
             v.default = False
@@ -180,12 +206,17 @@ class UserView(ModelSQL, ModelView):
         view.order = view_data['order'] or None
         view.current_search = view_data['search'] or None
         view.user = view_data['user']
-        if view_data['view_id']:
+        if view_data['view_id'] != False:
             view.view = view_data['view_id']
             tview = TrytonView(view_data['view_id'])
             view.view_model = Model.search([('model', '=', tview.model)])[0].id
         
-
+        elif view_data['field_data']:
+            f_data = view_data['field_data']
+            view.field_name = f_data['name']
+            view.view_model = Model.search([('model', '=', f_data['relation'])])[0].id
+            view.field_model = Model.search([('model', '=', f_data['model'])])[0].id
+            
         def getField(field_data):
             f_id = field_data.get('id', -1)
             # check if the field and view exist
@@ -217,12 +248,12 @@ class UserView(ModelSQL, ModelView):
         if len(fields) > 0:
             view.user_view_fields = fields
 
-       
+        
         view.save()
+        
        
         view_id = view.id
 
-        # view.default = view_data['default'] or False
 
         if view_data['default'] == True:
             View.user_view_set_default_view(view_id)

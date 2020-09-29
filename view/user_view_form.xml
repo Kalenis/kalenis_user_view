@@ -12,6 +12,10 @@
     <field name="view"/>
     <label name="view_model"/>
     <field name="view_model"/>
+    <label name="field_name"/>
+    <field name="field_name"/>
+    <label name="field_model"/>
+    <field name="field_model"/>
     <label name="current_search"/>
     <field name="current_search"/>
     <label name="order"/>
