@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from setuptools import setup
 import re
 import os
@@ -66,12 +67,10 @@ setup(name='%s_%s' % (PREFIX, MODULE),
     package_dir={'trytond.modules.%s' % MODULE: '.'},
     packages=[
         'trytond.modules.%s' % MODULE,
-        'trytond.modules.%s.tests' % MODULE,
         ],
     package_data={
         'trytond.modules.%s' % MODULE: (info.get('xml', []) + [
-            'tryton.cfg', 'view/*.xml', 'locale/*.po', 'report/*.fodt',
-            'report/*.fods', 'icons/*.svg', 'tests/*.rst']),
+            'tryton.cfg', 'view/*.xml', 'locale/*.po']),
         },
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -84,6 +83,7 @@ setup(name='%s_%s' % (PREFIX, MODULE),
         'License :: OSI Approved :: GNU General Public License v3 or later'
         ' (GPLv3+)',
         'Natural Language :: English',
+        'Natural Language :: Spanish',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
