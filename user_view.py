@@ -23,6 +23,7 @@ class UserView(ModelSQL, ModelView):
     view_model = fields.Many2One('ir.model', 'View Model')
     view = fields.Many2One('ir.ui.view', 'View')
     global_available = fields.Boolean('Available to all users')
+    compact = fields.Boolean('Compact List')
     current_search = fields.Char('Search')
     order = fields.Char('Order')
     # field_name its used to id o2many fields views
@@ -70,11 +71,12 @@ class UserView(ModelSQL, ModelView):
             res = [{'id':view.id, 
                     'rec_name':view.name, 
                     'default':view.default, 
+                    'compact':view.compact,
                     'search':view.current_search, 
                     'order':view.order,
                     'global_available':view.global_available,
                     'field_name':view.field_name,
-                    'model':view.view_model.model
+                    'model':view.view_model.model,
                     } 
                         for view in views]
         
@@ -204,6 +206,7 @@ class UserView(ModelSQL, ModelView):
                 
 
         view.order = view_data['order'] or None
+        view.compact = view_data['compact'] or False
         view.current_search = view_data['search'] or None
         view.user = view_data['user']
         if view_data['view_id'] != False:

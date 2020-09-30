@@ -6,6 +6,8 @@
     <field name="default"/>
     <label name="global_available"/>
     <field name="global_available"/>
+    <label name="compact"/>
+    <field name="compact"/>
     <label name="user"/>
     <field name="user"/>
     <label name="view"/>
