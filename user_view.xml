@@ -50,6 +50,18 @@
         </record>
     
         
+    <!-- Res user view -->
+    <record model="ir.ui.view" id="user_view_user_view_form">
+        <field name="model">res.user</field>
+        <field name="inherit" ref="res.user_view_form"/>
+        <field name="name">user_form</field>
+    </record>
+    <record model="ir.ui.view" id="user_view_user_view_form_preferences">
+        <field name="model">res.user</field>
+        <field name="inherit" ref="res.user_view_form_preferences"/>
+        <field name="name">user_form_preferences</field>
+    </record>
+
 <!-- Menu User View -->
        
   <menuitem name="User Views" id="user_view_main_menu"/>
