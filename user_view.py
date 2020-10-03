@@ -57,19 +57,45 @@ class UserView(ModelSQL, ModelView):
         res = []
         domain = []
         pool = Pool()
+        View = pool.get('user.view')
         if field == False:
             if not user_id or not view_id:
                 return res
-            domain = [('user','=',user_id), ('view','=',view_id)]
+            domain = ['OR', [('user','=',user_id), ('view','=',view_id)],
+                            [('global_available','=',True), ('view','=',view_id)]
+                    ]
         else:
-            domain = [('user','=',user_id), 
-                        ('field_name','=',field['name']), 
-                        ('view_model.model','=',field['relation']),
-                        ('field_model.model', '=', field['model'])
-                        ]
+            base_domain = [('field_name','=',field['name']), 
+                            ('view_model.model','=',field['relation']),
+                            ('field_model.model', '=', field['model'])
+                            ]
+            user_domain = [('user','=',user_id)] + base_domain
+            global_domain = [('global_available','=',True)] + base_domain
+            domain = ['OR',user_domain,global_domain]
+            
         
         
-        views = pool.get('user.view').search(domain)
+        views = View.search(domain)
+
+        def set_default(views):
+            if len(views) == 0:
+                return []
+
+            defaults = [v for v in views if v['default'] == True]
+            user_default = False
+            if len(defaults) > 1:
+                for d in defaults:
+                    if View(d['id']).user.id == user_id:
+                        user_default = d
+                        break
+            
+            
+            if user_default != False:
+                for v in views:
+                    if v['id'] != user_default['id']:
+                        v['default'] = False
+            
+            return views
 
         
         if len(views) > 0:
@@ -86,9 +112,8 @@ class UserView(ModelSQL, ModelView):
                         for view in views]
         
          
-        
-        
-        return res
+
+        return set_default(res)
 
 
 
@@ -166,15 +191,16 @@ class UserView(ModelSQL, ModelView):
         return res
     
     @classmethod
-    def user_view_set_default_view(cls, view_id):
+    def user_view_set_default_view(cls, view_id, user_id, reset=False):
+        domain = []
         pool = Pool()
         View = pool.get('user.view')
         view = View(view_id)
-        domain = []
+        
         if view.view != None:
-            domain = [('user','=',view.user.id),('view','=',view.view.id),('default','=',True)]
+            domain = [('user','=',user_id),('view','=',view.view.id),('default','=',True)]
         else:
-            domain = [('user','=',view.user.id), 
+            domain = [('user','=',user_id), 
                         ('field_name','=',view.field_name), 
                         ('view_model','=',view.view_model),
                         ('field_model', '=', view.field_model),
@@ -183,12 +209,13 @@ class UserView(ModelSQL, ModelView):
 
         current_default_views = View.search(domain)
         
+
         for v in current_default_views:
             v.default = False
             v.save()
-        
-        view.default = True
-        view.save()
+        if reset == False:        
+            view.default = True
+            view.save()
 
     @classmethod
     def user_view_set(cls, view_data={}):
@@ -264,7 +291,7 @@ class UserView(ModelSQL, ModelView):
 
 
         if view_data['default'] == True:
-            View.user_view_set_default_view(view_id)
+            View.user_view_set_default_view(view_id, view_data['user'])
        
         
         
