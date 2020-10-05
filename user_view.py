@@ -3,7 +3,7 @@
 # the full copyright notices and license terms.
 
 from trytond.model import ModelView, ModelSQL, fields, Unique, sequence_ordered
-from trytond.pyson import PYSONEncoder, Eval, Equal, Bool, Not, Or, And
+from trytond.pyson import PYSONEncoder, Eval, Equal, Bool, Not, Or, And, Id
 from trytond.pool import Pool, PoolMeta
 from trytond.wizard import (Wizard, StateTransition, StateView, StateAction,
     Button)
@@ -45,8 +45,27 @@ class UserView(ModelSQL, ModelView):
         cls.__rpc__['user_view_fields_get'] = RPC(cache=dict(days=1))
         cls.__rpc__['user_view_set'] = RPC(readonly=False)
         cls.__rpc__['user_view_set_default_view'] = RPC(readonly=False)
+        cls.__rpc__['user_view_manager_access'] = RPC(cache=dict(days=1))
         
-    
+    @classmethod
+    def user_view_manager_access(cls):
+        pool = Pool()
+        User = pool.get('res.user')
+        ModelData = pool.get('ir.model.data')
+        user_groups = User.get_groups()
+
+        
+        
+        res = {
+            'view_manager_access':{
+                'active':ModelData.get_id('user_view','view_manager_active') in user_groups,
+                'editor':ModelData.get_id('user_view','view_manager_editor') in user_groups,
+                'add_fields':ModelData.get_id('user_view','view_manager_add_fields') in user_groups,
+                'edit_global':ModelData.get_id('user_view','view_manager_global') in user_groups,
+                }
+        }
+        
+        return res
     
     @classmethod
     def user_views_get(cls, user_id=None, view_id=None, field=False):
@@ -241,6 +260,8 @@ class UserView(ModelSQL, ModelView):
         view.list_view_style = view_data['list_view_style'] or ''
         view.current_search = view_data['search'] or None
         view.user = view_data['user']
+        view.global_available = view_data['global_available']
+        
         if view_data['view_id'] != False:
             view.view = view_data['view_id']
             tview = TrytonView(view_data['view_id'])
