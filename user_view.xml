@@ -86,6 +86,22 @@
         <field name="name">View Manager Add Fields</field>
     </record>
 
+    <record model="res.user-res.group" id="user_admin_view_manager_active">
+        <field name="user" ref="res.user_admin"/>
+        <field name="group" ref="view_manager_active"/>
+    </record>
+    <record model="res.user-res.group" id="user_admin_view_manager_editor">
+        <field name="user" ref="res.user_admin"/>
+        <field name="group" ref="view_manager_editor"/>
+    </record>
+    <record model="res.user-res.group" id="user_admin_view_manager_global">
+        <field name="user" ref="res.user_admin"/>
+        <field name="group" ref="view_manager_global"/>
+    </record>
+    <record model="res.user-res.group" id="user_admin_view_manager_add_fields">
+        <field name="user" ref="res.user_admin"/>
+        <field name="group" ref="view_manager_add_fields"/>
+    </record>
 
 
     </data>
