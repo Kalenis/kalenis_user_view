@@ -15,8 +15,6 @@
             <field name="name">user_view_list</field>
         </record>
 
-        
-
 
 <!-- User View Field -->
 
@@ -33,6 +31,7 @@
         
 
 <!-- Actions User View View-->
+
         <record model="ir.action.act_window" id="act_user_view_list">
             <field name="name">User View</field>
             <field name="res_model">user.view</field>
@@ -49,60 +48,62 @@
             <field name="act_window" ref="act_user_view_list"/>
         </record>
     
-        
-    <!-- Res user view -->
-    <record model="ir.ui.view" id="user_view_user_view_form">
-        <field name="model">res.user</field>
-        <field name="inherit" ref="res.user_view_form"/>
-        <field name="name">user_form</field>
-    </record>
-    <record model="ir.ui.view" id="user_view_user_view_form_preferences">
-        <field name="model">res.user</field>
-        <field name="inherit" ref="res.user_view_form_preferences"/>
-        <field name="name">user_form_preferences</field>
-    </record>
+
+<!-- Res user view -->
+
+        <record model="ir.ui.view" id="user_view_user_view_form">
+            <field name="model">res.user</field>
+            <field name="inherit" ref="res.user_view_form"/>
+            <field name="name">user_form</field>
+        </record>
+        <record model="ir.ui.view" id="user_view_user_view_form_preferences">
+            <field name="model">res.user</field>
+            <field name="inherit" ref="res.user_view_form_preferences"/>
+            <field name="name">user_form_preferences</field>
+        </record>
+
 
 <!-- Menu User View -->
        
-  <menuitem name="User Views" id="user_view_main_menu"/>
-
+        <menuitem name="User Views" id="user_view_main_menu"/>
 
          <menuitem name="User Views"
             action="act_user_view_list"
             id="user_view_menu"
             parent="user_view_main_menu" sequence="10"/>
-    
+
+
 <!-- Groups -->
-    <record model="res.group" id="view_manager_active">
-        <field name="name">View Manager Active </field>
-    </record>
-    <record model="res.group" id="view_manager_editor">
-        <field name="name">View Manager Editor</field>
-    </record>
-    <record model="res.group" id="view_manager_global">
-        <field name="name">View Manager Global</field>
-    </record>
-    <record model="res.group" id="view_manager_add_fields">
-        <field name="name">View Manager Add Fields</field>
-    </record>
 
-    <record model="res.user-res.group" id="user_admin_view_manager_active">
-        <field name="user" ref="res.user_admin"/>
-        <field name="group" ref="view_manager_active"/>
-    </record>
-    <record model="res.user-res.group" id="user_admin_view_manager_editor">
-        <field name="user" ref="res.user_admin"/>
-        <field name="group" ref="view_manager_editor"/>
-    </record>
-    <record model="res.user-res.group" id="user_admin_view_manager_global">
-        <field name="user" ref="res.user_admin"/>
-        <field name="group" ref="view_manager_global"/>
-    </record>
-    <record model="res.user-res.group" id="user_admin_view_manager_add_fields">
-        <field name="user" ref="res.user_admin"/>
-        <field name="group" ref="view_manager_add_fields"/>
-    </record>
+        <record model="res.group" id="view_manager_active">
+            <field name="name">View Manager Active </field>
+        </record>
+        <record model="res.group" id="view_manager_editor">
+            <field name="name">View Manager Editor</field>
+        </record>
+        <record model="res.group" id="view_manager_global">
+            <field name="name">View Manager Global</field>
+        </record>
+        <record model="res.group" id="view_manager_add_fields">
+            <field name="name">View Manager Add Fields</field>
+        </record>
 
+        <record model="res.user-res.group" id="user_admin_view_manager_active">
+            <field name="user" ref="res.user_admin"/>
+            <field name="group" ref="view_manager_active"/>
+        </record>
+        <record model="res.user-res.group" id="user_admin_view_manager_editor">
+            <field name="user" ref="res.user_admin"/>
+            <field name="group" ref="view_manager_editor"/>
+        </record>
+        <record model="res.user-res.group" id="user_admin_view_manager_global">
+            <field name="user" ref="res.user_admin"/>
+            <field name="group" ref="view_manager_global"/>
+        </record>
+        <record model="res.user-res.group" id="user_admin_view_manager_add_fields">
+            <field name="user" ref="res.user_admin"/>
+            <field name="group" ref="view_manager_add_fields"/>
+        </record>
 
     </data>
 </tryton>
