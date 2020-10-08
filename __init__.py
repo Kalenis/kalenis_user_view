@@ -1,4 +1,4 @@
-# This file is part of lims_result_warning module for Tryton.
+# This file is part of kalenis_user_view module for Tryton.
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
 
@@ -14,4 +14,3 @@ def register():
         user_view.UserViewField,
         user.User,
         module='user_view', type_='model')
-    
