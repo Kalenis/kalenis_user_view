@@ -19,8 +19,8 @@ class UserView(ModelSQL, ModelView):
     user = fields.Many2One('res.user', 'User')
     view_model = fields.Many2One('ir.model', 'View Model')
     view = fields.Many2One('ir.ui.view', 'View')
+    act_window = fields.Many2One('ir.action.act_window', 'Action')
     global_available = fields.Boolean('Available to all users')
-    # compact = fields.Boolean('Compact List')
     list_view_style = fields.Selection([
         ('', ''),
         ('comfortable', 'Comfortable'),
@@ -67,7 +67,7 @@ class UserView(ModelSQL, ModelView):
         return res
 
     @classmethod
-    def user_views_get(cls, user_id=None, view_id=None, field=False):
+    def user_views_get(cls, user_id=None, view_id=None, field=False, act_window=False):
         '''
         Return list of user views.
         '''
@@ -75,7 +75,15 @@ class UserView(ModelSQL, ModelView):
         domain = []
         pool = Pool()
         View = pool.get('user.view')
-        if field is False:
+        if act_window != False:
+            if not user_id:
+                return res
+            domain = [
+                'OR',
+                [('user', '=', user_id), ('act_window', '=', act_window)],
+                [('global_available', '=', True), ('act_window', '=', act_window)],
+                ]
+        elif field is False:
             if not user_id or not view_id:
                 return res
             domain = [
@@ -206,6 +214,12 @@ class UserView(ModelSQL, ModelView):
                 ('view', '=', view.view.id),
                 ('default', '=', True),
                 ]
+        elif view.act_window is not None:
+            domain = [
+                ('user', '=', user_id),
+                ('act_window', '=', view.act_window.id),
+                ('default', '=', True),
+                ]
         else:
             domain = [
                 ('user', '=', user_id),
@@ -224,6 +238,7 @@ class UserView(ModelSQL, ModelView):
             view.default = True
             view.save()
 
+    #TODO: Refactor
     @classmethod
     def user_view_set(cls, view_data={}):
         pool = Pool()
@@ -232,6 +247,7 @@ class UserView(ModelSQL, ModelView):
         Model = pool.get('ir.model')
         TrytonView = pool.get('ir.ui.view')
         TrytonField = pool.get('ir.model.field')
+        TrytonAction = pool.get('ir.action.act_window')
 
         if view_data['id'] > 0:
             view = View(view_data['id'])
@@ -251,13 +267,20 @@ class UserView(ModelSQL, ModelView):
             tview = TrytonView(view_data['view_id'])
             view.view_model = Model.search([('model', '=', tview.model)])[0].id
 
-        elif view_data['field_data']:
+        elif 'field_data' in view_data:
             f_data = view_data['field_data']
             view.field_name = f_data['name']
             view.view_model = Model.search(
                 [('model', '=', f_data['relation'])])[0].id
             view.field_model = Model.search(
                 [('model', '=', f_data['model'])])[0].id
+
+        elif 'action' in view_data:
+            act_window = TrytonAction(view_data['action'])
+            view.act_window = act_window
+            view.view_model = Model.search(
+                [('model', '=', act_window.res_model)])[0].id
+
 
         def getField(field_data):
             f_id = field_data.get('id', -1)

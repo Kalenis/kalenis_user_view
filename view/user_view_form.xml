@@ -12,6 +12,8 @@
     <field name="user"/>
     <label name="view"/>
     <field name="view"/>
+    <label name="act_window"/>
+    <field name="act_window"/>
     <label name="view_model"/>
     <field name="view_model"/>
     <label name="field_name"/>
