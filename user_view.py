@@ -67,7 +67,8 @@ class UserView(ModelSQL, ModelView):
         return res
 
     @classmethod
-    def user_views_get(cls, user_id=None, view_id=None, field=False, act_window=False):
+    def user_views_get(cls, user_id=None, view_id=None, field=False,
+            act_window=False):
         '''
         Return list of user views.
         '''
@@ -75,13 +76,16 @@ class UserView(ModelSQL, ModelView):
         domain = []
         pool = Pool()
         View = pool.get('user.view')
-        if act_window != False:
+        if act_window is not False:
             if not user_id:
                 return res
             domain = [
                 'OR',
                 [('user', '=', user_id), ('act_window', '=', act_window)],
-                [('global_available', '=', True), ('act_window', '=', act_window)],
+                [
+                    ('global_available', '=', True),
+                    ('act_window', '=', act_window)
+                ],
                 ]
         elif field is False:
             if not user_id or not view_id:
@@ -238,7 +242,7 @@ class UserView(ModelSQL, ModelView):
             view.default = True
             view.save()
 
-    #TODO: Refactor
+    # TODO: Refactor
     @classmethod
     def user_view_set(cls, view_data={}):
         pool = Pool()
@@ -280,7 +284,6 @@ class UserView(ModelSQL, ModelView):
             view.act_window = act_window
             view.view_model = Model.search(
                 [('model', '=', act_window.res_model)])[0].id
-
 
         def getField(field_data):
             f_id = field_data.get('id', -1)
