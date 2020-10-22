@@ -65,7 +65,7 @@
 
 <!-- Menu User View -->
        
-        <menuitem name="User Views" id="user_view_main_menu"/>
+        <menuitem parent="ir.menu_ui"  name="User Views" id="user_view_main_menu"/>
 
          <menuitem name="User Views"
             action="act_user_view_list"
