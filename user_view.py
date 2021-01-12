@@ -34,6 +34,7 @@ class UserView(ModelSQL, ModelView):
     field_model = fields.Many2One('ir.model', 'Field Model')
     user_view_fields = fields.One2Many(
         'user.view.field', 'user_view', 'Fields')
+    records_qty = fields.Integer('Records Quantity')
 
     @classmethod
     def __setup__(cls):
@@ -135,6 +136,7 @@ class UserView(ModelSQL, ModelView):
                     'order': view.order,
                     'global_available': view.global_available,
                     'field_name': view.field_name,
+                    'records_qty':view.records_qty or False,
                     'model': view.view_model.model,
                     } for view in views]
 
@@ -258,13 +260,14 @@ class UserView(ModelSQL, ModelView):
         else:
             view = View()
 
+        
         view.name = view_data['name']
-
         view.order = view_data['order'] or None
         view.list_view_style = view_data['list_view_style'] or ''
         view.current_search = view_data['search'] or None
         view.user = view_data['user']
         view.global_available = view_data['global_available']
+        view.records_qty = view_data['records_qty']
 
         if view_data['view_id'] is not False:
             view.view = view_data['view_id']

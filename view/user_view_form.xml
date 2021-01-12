@@ -24,6 +24,8 @@
     <field name="current_search"/>
     <label name="order"/>
     <field name="order"/>
+    <label name="records_qty"/>
+    <field name="records_qty"/>
     <field name="user_view_fields" colspan="4"/>    
     
     
