@@ -39,11 +39,11 @@ class UserView(ModelSQL, ModelView):
     @classmethod
     def __setup__(cls):
         super(UserView, cls).__setup__()
-        cls.__rpc__['user_views_get'] = RPC(cache=dict(days=1))
-        cls.__rpc__['user_view_fields_get'] = RPC(cache=dict(days=1))
+        cls.__rpc__['user_views_get'] = RPC()
+        cls.__rpc__['user_view_fields_get'] = RPC()
         cls.__rpc__['user_view_set'] = RPC(readonly=False)
         cls.__rpc__['user_view_set_default_view'] = RPC(readonly=False)
-        cls.__rpc__['user_view_manager_access'] = RPC(cache=dict(days=1))
+        cls.__rpc__['user_view_manager_access'] = RPC()
 
     @classmethod
     def user_view_manager_access(cls):
