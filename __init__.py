@@ -5,6 +5,7 @@
 from trytond.pool import Pool
 from . import user_view
 from . import user
+from . import lang
 # from . import table
 
 
@@ -13,4 +14,5 @@ def register():
         user_view.UserView,
         user_view.UserViewField,
         user.User,
+        lang.Lang,
         module='user_view', type_='model')
