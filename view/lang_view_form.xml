@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<data>
+    <xpath expr="/form/field[@name='date']" position="after">
+        <label name="time"/>
+        <field name="time"/>
+    </xpath>
+</data>
