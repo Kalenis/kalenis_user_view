@@ -26,10 +26,5 @@
     <field name="order"/>
     <label name="records_qty"/>
     <field name="records_qty"/>
-    <field name="user_view_fields" colspan="4"/>    
-    
-    
-    
-    
-    
+    <field name="user_view_fields" colspan="4"/>
 </form>

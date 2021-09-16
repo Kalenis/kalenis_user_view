@@ -7,8 +7,6 @@ from trytond.pyson import Eval
 from trytond.pool import Pool
 from trytond.rpc import RPC
 
-__all__ = ['UserView', 'UserViewField']
-
 
 class UserView(ModelSQL, ModelView):
     'User View'
@@ -137,7 +135,7 @@ class UserView(ModelSQL, ModelView):
                     'order': view.order,
                     'global_available': view.global_available,
                     'field_name': view.field_name,
-                    'records_qty':view.records_qty or False,
+                    'records_qty': view.records_qty or False,
                     'model': view.view_model.model,
                     } for view in views]
 
@@ -261,7 +259,6 @@ class UserView(ModelSQL, ModelView):
         else:
             view = View()
 
-        
         view.name = view_data['name']
         view.order = view_data['order'] or None
         view.list_view_style = view_data['list_view_style'] or ''

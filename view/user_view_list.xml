@@ -8,5 +8,4 @@
     <field name="view_model"/>
     <field name="current_search"/>
     <field name="order"/>
-
 </tree>

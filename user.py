@@ -1,7 +1,10 @@
+# This file is part of kalenis_user_view module for Tryton.
+# The COPYRIGHT file at the top level of this repository contains
+# the full copyright notices and license terms.
+
 from trytond.pool import PoolMeta, Pool
 from trytond.model import fields
 from ast import literal_eval
-__all__ = ['User']
 
 
 class User(metaclass=PoolMeta):
@@ -73,10 +76,10 @@ class User(metaclass=PoolMeta):
     #             'thousands_sep': user.language.thousands_sep,
     #         }
     #     return res
-    
+
     @classmethod
     def _get_preferences(cls, user, context_only=False):
-        res = super()._get_preferences(user,context_only)
+        res = super()._get_preferences(user, context_only)
         if user.language:
             res['locale']['time'] = user.language.time
         return res

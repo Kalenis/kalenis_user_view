@@ -6,7 +6,6 @@ from trytond.pool import Pool
 from . import user_view
 from . import user
 from . import lang
-# from . import table
 
 
 def register():

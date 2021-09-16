@@ -3,10 +3,7 @@
     <xpath
         expr="/form/notebook/page[@id='preferences']/field[@name='language']"
         position="after">
-    
         <label name="list_view_style"/>
         <field name="list_view_style"/>
-        
-        
     </xpath>
 </data>
