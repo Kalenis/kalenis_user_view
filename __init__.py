@@ -6,6 +6,7 @@ from trytond.pool import Pool
 from . import user_view
 from . import user
 from . import lang
+from . import ir
 
 
 def register():
@@ -14,4 +15,5 @@ def register():
         user_view.UserViewField,
         user.User,
         lang.Lang,
+        ir.ViewSearch,
         module='user_view', type_='model')
