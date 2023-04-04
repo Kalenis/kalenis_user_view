@@ -2,10 +2,158 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
-msgctxt "field:lims.notebook.line,result_warning:"
-msgid "Result Warning"
-msgstr "Advertencia de resultado"
+msgctxt "field:ir.lang,time:"
+msgid "Time"
+msgstr ""
 
-msgctxt "model:ir.message,text:lbl_result_warning"
-msgid "Result Warning"
-msgstr "Advertencia de resultado"
+msgctxt "field:res.user,list_view_style:"
+msgid "List View Style"
+msgstr ""
+
+msgctxt "field:user.view,act_window:"
+msgid "Action"
+msgstr "Acción"
+
+msgctxt "field:user.view,current_search:"
+msgid "Search"
+msgstr ""
+
+msgctxt "field:user.view,default:"
+msgid "Default view"
+msgstr ""
+
+msgctxt "field:user.view,field_model:"
+msgid "Field Model"
+msgstr ""
+
+msgctxt "field:user.view,field_name:"
+msgid "Field Name"
+msgstr "Nombre del campo"
+
+msgctxt "field:user.view,global_available:"
+msgid "Available to all users"
+msgstr ""
+
+msgctxt "field:user.view,list_view_style:"
+msgid "List View Style"
+msgstr ""
+
+msgctxt "field:user.view,name:"
+msgid "View Name"
+msgstr ""
+
+msgctxt "field:user.view,order:"
+msgid "Order"
+msgstr "Orden"
+
+msgctxt "field:user.view,records_qty:"
+msgid "Records Quantity"
+msgstr ""
+
+msgctxt "field:user.view,user:"
+msgid "User"
+msgstr "Usuario"
+
+msgctxt "field:user.view,user_view_fields:"
+msgid "Fields"
+msgstr "Campos"
+
+msgctxt "field:user.view,view:"
+msgid "View"
+msgstr "Vista"
+
+msgctxt "field:user.view,view_model:"
+msgid "View Model"
+msgstr ""
+
+msgctxt "field:user.view.field,description:"
+msgid "Description"
+msgstr "Descripción"
+
+msgctxt "field:user.view.field,expression:"
+msgid "Expression"
+msgstr ""
+
+msgctxt "field:user.view.field,field:"
+msgid "Field"
+msgstr "Campo"
+
+msgctxt "field:user.view.field,field_widget:"
+msgid "Widget"
+msgstr ""
+
+msgctxt "field:user.view.field,height:"
+msgid "Height"
+msgstr ""
+
+msgctxt "field:user.view.field,name:"
+msgid "Field Name"
+msgstr "Nombre del campo"
+
+msgctxt "field:user.view.field,type:"
+msgid "Type"
+msgstr "Tipo"
+
+msgctxt "field:user.view.field,user_view:"
+msgid "User View"
+msgstr ""
+
+msgctxt "field:user.view.field,visual:"
+msgid "Visual"
+msgstr ""
+
+msgctxt "field:user.view.field,width:"
+msgid "Width"
+msgstr "Ancho"
+
+msgctxt "model:ir.action,name:act_user_view_list"
+msgid "User View"
+msgstr ""
+
+msgctxt "model:ir.ui.menu,name:user_view_main_menu"
+msgid "User Views"
+msgstr ""
+
+msgctxt "model:ir.ui.menu,name:user_view_menu"
+msgid "User Views"
+msgstr ""
+
+msgctxt "model:res.group,name:view_manager_active"
+msgid "View Manager Active"
+msgstr ""
+
+msgctxt "model:res.group,name:view_manager_add_fields"
+msgid "View Manager Add Fields"
+msgstr ""
+
+msgctxt "model:res.group,name:view_manager_editor"
+msgid "View Manager Editor"
+msgstr ""
+
+msgctxt "model:res.group,name:view_manager_global"
+msgid "View Manager Global"
+msgstr ""
+
+msgctxt "model:user.view,name:"
+msgid "User View"
+msgstr ""
+
+msgctxt "model:user.view.field,name:"
+msgid "User View Field"
+msgstr ""
+
+msgctxt "selection:res.user,list_view_style:"
+msgid "Comfortable"
+msgstr ""
+
+msgctxt "selection:res.user,list_view_style:"
+msgid "Compact"
+msgstr ""
+
+msgctxt "selection:user.view,list_view_style:"
+msgid "Comfortable"
+msgstr ""
+
+msgctxt "selection:user.view,list_view_style:"
+msgid "Compact"
+msgstr ""
