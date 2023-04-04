@@ -3,10 +3,7 @@ from setuptools import setup
 import re
 import os
 import io
-try:
-    from configparser import ConfigParser
-except ImportError:
-    from ConfigParser import ConfigParser
+from configparser import ConfigParser
 
 MODULE = 'user_view'
 PREFIX = 'kalenis'
@@ -86,17 +83,16 @@ setup(name='%s_%s' % (PREFIX, MODULE),
         'Natural Language :: Spanish',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: Implementation :: CPython',
-        'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Office/Business',
         'Topic :: Scientific/Engineering',
         ],
     license='GPL-3',
-    python_requires='>=3.6',
+    python_requires='>=3.7',
     install_requires=requires,
     dependency_links=dependency_links,
     zip_safe=False,
