@@ -71,7 +71,6 @@ class UserView(ModelSQL, ModelView):
         '''
         Return list of user views.
         '''
-        print("GETTING USER VIE<ws")
         res = []
         domain = []
         pool = Pool()

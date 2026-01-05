@@ -8,6 +8,8 @@ from . import user
 from . import lang
 from . import ir
 
+__all__ = ['register']
+
 
 def register():
     Pool.register(
