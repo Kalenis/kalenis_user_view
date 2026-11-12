@@ -6,13 +6,15 @@ from trytond.model import ModelView, ModelSQL, fields, sequence_ordered
 from trytond.pyson import Eval
 from trytond.pool import Pool
 from trytond.rpc import RPC
+from trytond.i18n import gettext
+from trytond.exceptions import UserError
 
 
 class UserView(ModelSQL, ModelView):
     'User View'
     __name__ = 'user.view'
 
-    name = fields.Char('View Name')
+    name = fields.Char('View Name', required=True)
     default = fields.Boolean('Default view')
     user = fields.Many2One('res.user', 'User')
     view_model = fields.Many2One('ir.model', 'View Model')
@@ -259,7 +261,7 @@ class UserView(ModelSQL, ModelView):
         else:
             view = View()
 
-        view.name = view_data['name']
+        view.name = view_data.get('name')
         view.order = view_data['order'] or None
         view.list_view_style = view_data['list_view_style'] or ''
         view.current_search = view_data['search'] or None
@@ -280,11 +282,14 @@ class UserView(ModelSQL, ModelView):
             view.field_model = Model.search(
                 [('model', '=', f_data['model'])])[0].id
 
-        elif 'action' in view_data:
+        elif view_data.get('action'):
             act_window = TrytonAction(view_data['action'])
             view.act_window = act_window
             view.view_model = Model.search(
                 [('model', '=', act_window.res_model)])[0].id
+
+        else:
+            raise UserError(gettext('user_view.msg_view_without_reference'))
 
         def getField(field_data):
             f_id = field_data.get('id', -1)
